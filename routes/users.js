@@ -109,5 +109,24 @@ router.post('/login/', async (req, res) => {
 	res.json({ status: 'error', error: 'Invalid username/password' })
 })
 
+require('dotenv').config()
+require('../passport-setup')
+/////
+const passport=require('passport')
+app.use(passport.initialize())
+app.use(passport.session())
+app.get('/',(req,res)=>{
+    res.render('../views/index')
+})
+app.get('/success',(req,res)=>{
+    res.render("profile",{name:req.user.displayName,pic:req.user.photos[0].value,email:req.user.emails[0].value})
+})
+app.get('/google',passport.authenticate('google',{scope:['profile','email']}))
+app.get('/google/callback', passport.authenticate('google', { failureRedirect: '/failed' }),
+  function(req, res) {
+    // Successful authentication, redirect home.
+    res.redirect('/success');
+  }
+);
 
 module.exports = router;
