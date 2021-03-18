@@ -1,0 +1,39 @@
+<html>
+    <body>
+        <h1>show</h1>
+        <a href="/addCompte/login">login</a>
+        <a href="/addCompte/register">add account</a>
+
+        <table border="2">
+            <tr>
+             <td>id</td>
+             <td>username</td>
+             <td>id</td>
+             <td>actions</td>
+            
+
+
+            </tr>
+            <% if(admin.length > 0 ) { %>
+            <% for(var i=0;i < admin.length;i++) {   %>
+            <tr>
+                <td> <%=admin[i]._id   %>
+                </td>
+                <td><%=admin[i].username   %></td>
+                <td><%=admin[i].password   %></td>
+                <td>
+                <a href="/delete/<%= admin[i]._id %>">supprimer</a>
+                <a href="/<%= admin[i]._id %>">show</a>
+               </td>
+
+
+   
+               </tr>
+               <%  }   %>
+               <%  } else {  %>
+<h3>vide</h3>
+<%  }   %>
+
+        </table>
+    </body>
+</html>
